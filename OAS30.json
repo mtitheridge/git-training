@@ -1,0 +1,113 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "FLG Customer API",
+    "description" : "No description",
+    "version" : "1.0.0"
+  },
+  "paths" : {
+    "/customer/{id}" : {
+      "summary" : "Company customer identifier",
+      "description" : "Allows you to get by ID, return by ID etc.",
+      "get" : {
+        "summary" : "Get by Customer ID",
+        "description" : "Fetch a specific customer record by ID",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Customer JSON"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/customer/" : {
+      "get" : {
+        "summary" : "Get Customers",
+        "description" : "Get the first record in an array given the criteria Partnership name and State",
+        "parameters" : [ {
+          "name" : "CorporatePartner",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "State",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "VIC", "QLD", "NSW", "WA", "SA", "NT", "TAS", "ACT" ],
+            "minLength" : 2,
+            "maxLength" : 3
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Customer JSON"
+                  }
+                },
+                "example" : "{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}\n{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}\n{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Customer JSON" : {
+        "type" : "object",
+        "properties" : {
+          "ID" : {
+            "type" : "integer"
+          },
+          "CorporatePartner" : {
+            "type" : "string"
+          },
+          "Address" : {
+            "type" : "string"
+          },
+          "Suburb" : {
+            "type" : "string"
+          },
+          "Postcode" : {
+            "type" : "string"
+          },
+          "State" : {
+            "type" : "string"
+          },
+          "Mobile" : {
+            "type" : "string"
+          },
+          "HomePhone" : {
+            "type" : "string"
+          },
+          "Email" : {
+            "type" : "string"
+          }
+        },
+        "example" : "{\n\"root\":{\n\"ID\": 14,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"***RTS***\",\n\"Suburb\": \"Preston\",\n\"Postcode\": 3072,\n\"State\": \"VIC\",\n\"Mobile\": \"0430145461\",\n\"HomePhone\": 30145461,\n\"Email\": \"\"\n}\n}"
+      }
+    }
+  }
+}
