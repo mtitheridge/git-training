@@ -1,27 +1,38 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "FLG Customer API",
+    "title" : "Student API",
     "description" : "No description",
+    "contact" : { },
     "version" : "1.0.0"
   },
+  "servers" : [ {
+    "url" : "http://127.0.0.1:8090/student-api"
+  } ],
   "paths" : {
-    "/customer/{id}" : {
-      "summary" : "Company customer identifier",
-      "description" : "Allows you to get by ID, return by ID etc.",
+    "/student/{id}/" : {
       "get" : {
-        "summary" : "Get by Customer ID",
-        "description" : "Fetch a specific customer record by ID",
+        "summary" : "Get by Student ID",
+        "description" : "Get Students using the Student ID",
         "responses" : {
           "200" : {
             "description" : "Status 200",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Customer%20JSON"
+                  "$ref" : "#/components/schemas/Student%20JSON"
                 }
               }
             }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete Student",
+        "description" : "Delete the student by ID",
+        "responses" : {
+          "202" : {
+            "description" : "Status 202"
           }
         }
       },
@@ -32,29 +43,43 @@
         "schema" : {
           "type" : "string"
         }
-      } ],
-      "x-talend" : {
-        "section" : "Operations"
-      }
+      } ]
     },
-    "/customer/" : {
+    "/student/" : {
       "get" : {
-        "summary" : "Get Customers",
-        "description" : "Get the first record in an array given the criteria Partnership name and State",
+        "summary" : "Get Students",
         "parameters" : [ {
-          "name" : "CorporatePartner",
+          "name" : "firstName",
           "in" : "query",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "State",
-          "in" : "query",
+          "description" : "Student First Name",
           "schema" : {
             "type" : "string",
-            "enum" : [ "VIC", "QLD", "NSW", "WA", "SA", "NT", "TAS", "ACT" ],
-            "minLength" : 2,
-            "maxLength" : 3
+            "description" : "Student First Name"
+          }
+        }, {
+          "name" : "lastName",
+          "in" : "query",
+          "description" : "Student Last Name",
+          "schema" : {
+            "type" : "string",
+            "description" : "Student Last Name"
+          }
+        }, {
+          "name" : "entryTerm",
+          "in" : "query",
+          "description" : "Student Entry Term",
+          "schema" : {
+            "type" : "string",
+            "description" : "Student Entry Term"
+          }
+        }, {
+          "name" : "applicantStatus",
+          "in" : "query",
+          "description" : "Student Applicant Status",
+          "schema" : {
+            "type" : "string",
+            "description" : "Student Applicant Status",
+            "enum" : [ "accepted", "denied", "withdraw", "enrolled" ]
           }
         } ],
         "responses" : {
@@ -65,67 +90,87 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Customer%20JSON"
+                    "$ref" : "#/components/schemas/Student%20JSON"
                   }
                 },
-                "example" : "{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}\n{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}\n{\n\"root\":{\n\"ID\": 23785,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"18 cocumbine way\",\n\"Suburb\": \"Gaven\",\n\"Postcode\": 4211,\n\"State\": \"QLD\",\n\"Mobile\": \"0439502517\",\n\"HomePhone\": \"\",\n\"Email\": \"\"\n}\n}"
+                "example" : "{  \n   \"student\":[  \n      {  \n         \"studentId\":145003,\n         \"firstName\":\"Benjamin\",\n         \"middleName\":\"Woodrow\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"withdraw\",\n         \"entryTerm\":201702,\n         \"address\":\"539 Cleveland Ave.\",\n         \"city\":\"Helena\",\n         \"state\":\"Mississippi\",\n         \"zip\":3657\n      },\n      {  \n         \"studentId\":145013,\n         \"firstName\":\"Andrew\",\n         \"middleName\":\"Warren\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"accepted\",\n         \"entryTerm\":201701,\n         \"address\":\"1229 Bailard Avenue\",\n         \"city\":\"Trenton\",\n         \"state\":\"South Carolina\",\n         \"zip\":63959\n      },\n      {  \n         \"studentId\":145091,\n         \"firstName\":\"Millard\",\n         \"middleName\":\"Richard\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"enrolled\",\n         \"entryTerm\":201701,\n         \"address\":\"1090 Carpinteria North\",\n         \"city\":\"Providence\",\n         \"state\":\"Maine\",\n         \"zip\":57472\n      }\n   ]\n}"
               }
             }
           }
         }
       },
-      "x-talend" : {
-        "section" : "Operations"
+      "post" : {
+        "summary" : "Add a new Student",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Student%20JSON"
+              },
+              "example" : "{\n  \"student\": {\n    \"studentId\": 55555,\n    \"firstName\": \"Andrew\",\n    \"middleName\": \"Franklin\",\n    \"lastName\": \"Quincy\",\n    \"applicantStatus\": \"accepted\",\n    \"entryTerm\": 201702,\n    \"address\": \"1793 East Main Street\",\n    \"city\": \"Columbia\",\n    \"state\": \"Hawaii\",\n    \"zip\": 62433\n  }\n}"
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
       }
     }
   },
   "components" : {
     "schemas" : {
-      "Customer JSON" : {
+      "applicantStatus" : {
+        "type" : "string",
+        "description" : "The Student Applicant Status",
+        "enum" : [ "accepted", "denied", "withdraw", "enrolled" ]
+      },
+      "Student JSON" : {
         "type" : "object",
+        "description" : "Student JSON Structure",
         "properties" : {
-          "ID" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "CorporatePartner" : {
-            "type" : "string"
-          },
-          "Address" : {
-            "type" : "string"
-          },
-          "Suburb" : {
-            "type" : "string"
-          },
-          "Postcode" : {
-            "type" : "string"
-          },
-          "State" : {
-            "type" : "string"
-          },
-          "Mobile" : {
-            "type" : "string"
-          },
-          "HomePhone" : {
-            "type" : "string"
-          },
-          "Email" : {
-            "type" : "string"
+          "Student" : {
+            "type" : "object",
+            "properties" : {
+              "zip" : {
+                "type" : "number",
+                "description" : "US Postal Code"
+              },
+              "city" : {
+                "type" : "string"
+              },
+              "state" : {
+                "type" : "string"
+              },
+              "address" : {
+                "type" : "string"
+              },
+              "lastName" : {
+                "type" : "string"
+              },
+              "entryTerm" : {
+                "type" : "number",
+                "example" : 201701
+              },
+              "firstName" : {
+                "type" : "string"
+              },
+              "studentId" : {
+                "type" : "number",
+                "example" : 145001
+              },
+              "middleName" : {
+                "type" : "string"
+              },
+              "applicantStatus" : {
+                "$ref" : "#/components/schemas/applicantStatus"
+              }
+            }
           }
         },
-        "example" : "{\n\"root\":{\n\"ID\": 14,\n\"CorporatePartner\": \"Malaysian Airlines\",\n\"Address\": \"***RTS***\",\n\"Suburb\": \"Preston\",\n\"Postcode\": 3072,\n\"State\": \"VIC\",\n\"Mobile\": \"0430145461\",\n\"HomePhone\": 30145461,\n\"Email\": \"\"\n}\n}",
-        "x-talend" : {
-          "section" : "Structures"
-        }
+        "example" : "{\n  \"student\": {\n    \"studentId\": 145025,\n    \"firstName\": \"Andrew\",\n    \"middleName\": \"Franklin\",\n    \"lastName\": \"Quincy\",\n    \"applicantStatus\": \"accepted\",\n    \"entryTerm\": 201702,\n    \"address\": \"1793 East Main Street\",\n    \"city\": \"Columbia\",\n    \"state\": \"Hawaii\",\n    \"zip\": 62433\n  }\n}"
       }
-    }
-  },
-  "x-talend" : {
-    "sections" : {
-      "Operations" : {
-        "description" : "Repository for all creatd operations for Customer API"
-      },
-      "Structures" : { }
     }
   }
 }
