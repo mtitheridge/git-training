@@ -20,7 +20,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Student JSON"
+                  "$ref" : "#/components/schemas/Student%20JSON"
                 }
               }
             }
@@ -49,6 +49,14 @@
       "get" : {
         "summary" : "Get Students",
         "parameters" : [ {
+          "name" : "firstName",
+          "in" : "query",
+          "description" : "Student First Name",
+          "schema" : {
+            "type" : "string",
+            "description" : "Student First Name"
+          }
+        }, {
           "name" : "lastName",
           "in" : "query",
           "description" : "Student Last Name",
@@ -63,14 +71,6 @@
           "schema" : {
             "type" : "string",
             "description" : "Student Entry Term"
-          }
-        }, {
-          "name" : "firstName",
-          "in" : "query",
-          "description" : "Student First Name",
-          "schema" : {
-            "type" : "string",
-            "description" : "Student First Name"
           }
         }, {
           "name" : "applicantStatus",
@@ -90,7 +90,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Student JSON"
+                    "$ref" : "#/components/schemas/Student%20JSON"
                   }
                 },
                 "example" : "{  \n   \"student\":[  \n      {  \n         \"studentId\":145003,\n         \"firstName\":\"Benjamin\",\n         \"middleName\":\"Woodrow\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"withdraw\",\n         \"entryTerm\":201702,\n         \"address\":\"539 Cleveland Ave.\",\n         \"city\":\"Helena\",\n         \"state\":\"Mississippi\",\n         \"zip\":3657\n      },\n      {  \n         \"studentId\":145013,\n         \"firstName\":\"Andrew\",\n         \"middleName\":\"Warren\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"accepted\",\n         \"entryTerm\":201701,\n         \"address\":\"1229 Bailard Avenue\",\n         \"city\":\"Trenton\",\n         \"state\":\"South Carolina\",\n         \"zip\":63959\n      },\n      {  \n         \"studentId\":145091,\n         \"firstName\":\"Millard\",\n         \"middleName\":\"Richard\",\n         \"lastName\":\"Fillmore\",\n         \"applicantStatus\":\"enrolled\",\n         \"entryTerm\":201701,\n         \"address\":\"1090 Carpinteria North\",\n         \"city\":\"Providence\",\n         \"state\":\"Maine\",\n         \"zip\":57472\n      }\n   ]\n}"
@@ -105,7 +105,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Student JSON"
+                "$ref" : "#/components/schemas/Student%20JSON"
               },
               "example" : "{\n  \"student\": {\n    \"studentId\": 55555,\n    \"firstName\": \"Andrew\",\n    \"middleName\": \"Franklin\",\n    \"lastName\": \"Quincy\",\n    \"applicantStatus\": \"accepted\",\n    \"entryTerm\": 201702,\n    \"address\": \"1793 East Main Street\",\n    \"city\": \"Columbia\",\n    \"state\": \"Hawaii\",\n    \"zip\": 62433\n  }\n}"
             }
